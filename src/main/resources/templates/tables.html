@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" href="../static/main.css" type="text/css"/>
+
 
 <!-- ===========================
      BILLS TABLE FRAGMENT
@@ -38,7 +40,7 @@
 
     <div class="table-total">
         <span>Total:</span>
-        <span>$255.69</span>
+        <span th:text="${billsTotal}"></span>
     </div>
 
 </section>
@@ -82,7 +84,7 @@
 
     <div class="table-total">
         <span>Total:</span>
-        <span>$135.00</span>
+        <span th:text="${itemsTotal}"></span>
     </div>
 
 </section>
@@ -122,11 +124,11 @@
         </tbody>
     </table>
 
-    <button class="add-row-btn">+ Add Row</button>
+    <button class="add-row-btn center-cell" rowspan="3">+ Add Row</button>
 
     <div class="table-total">
         <span>Total:</span>
-        <span>$380.00</span>
+        <span th:text="${employeesTotal}"></span>
     </div>
 
 </section>

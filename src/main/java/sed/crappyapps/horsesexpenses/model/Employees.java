@@ -4,10 +4,12 @@
  */
 package sed.crappyapps.horsesexpenses.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import java.math.BigDecimal;
 
 
 
@@ -20,8 +22,12 @@ public class Employees
 
     
     private String name;
-    private double hours;
-    private double pay;
+    
+    @Column(name = "hours", precision = 16, scale = 2)
+    private BigDecimal hours;
+    
+    @Column(name = "pay", precision = 16, scale = 2)
+    private BigDecimal pay;
 
     public Employees(){};
 
@@ -41,19 +47,19 @@ public class Employees
         this.name = name;
     }
 
-    public double getHours() {
+    public BigDecimal getHours() {
         return hours;
     }
 
-    public void setHours(double hours) {
+    public void setHours(BigDecimal hours) {
         this.hours = hours;
     }
 
-    public double getPay() {
+    public BigDecimal getPay() {
         return pay;
     }
 
-    public void setPay(double pay) {
+    public void setPay(BigDecimal pay) {
         this.pay = pay;
     }
 

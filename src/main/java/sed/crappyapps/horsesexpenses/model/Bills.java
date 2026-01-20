@@ -4,10 +4,12 @@
  */
 package sed.crappyapps.horsesexpenses.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import java.math.BigDecimal;
 
 
 
@@ -21,11 +23,13 @@ public class Bills
     
     private String vendor;
     private String date;
-    private double amount;
+    
+    @Column(name = "amount", precision = 16, scale = 2)
+    private BigDecimal amount;
 
     public Bills(){};
     
-    public Bills(String vendor, String date, double amount) {
+    public Bills(String vendor, String date, BigDecimal amount) {
         this.vendor = vendor;
         this.date = date;
         this.amount = amount;
@@ -40,11 +44,11 @@ public class Bills
     }
 
     
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

@@ -294,3 +294,12 @@ tr.table-row-remove {
     border-radius: 8px;
     cursor: pointer;
 }
+
+.center-cell {
+    display: flex; /* Enable Flexbox on the cell */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100%; /* Ensure the cell takes up available height */
+    /* Remove default table cell behavior that conflicts with flex positioning */
+    vertical-align: top; 
+}
