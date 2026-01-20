@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Bluejay Princess Form</title>
+        
+        <link rel="stylesheet" href="/main.css"/>
+        <script src="/main.js"></script>    
+    </head>
+
+    <body>
+        <div class="form-wrapper">
+            <header class="form-header">
+                <h1>Project Overview</h1>
+            </header>
+
+            <div th:replace="tables :: billsTable"></div>
+            <div th:replace="tables :: itemsTable"></div>
+            <div th:replace="tables :: employeesTable"></div>
+
+            <div th:replace="footer :: footerSection"></div>
+
+        </div>
+        
+       
+    </body>
+</html>

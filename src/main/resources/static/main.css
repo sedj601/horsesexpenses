@@ -1,0 +1,220 @@
+/* Wrapper */
+.form-wrapper {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+}
+
+/* Header */
+.form-header h1 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 35px;
+    color: #1c2e5b;
+    font-weight: 600;
+}
+
+/* Base table section styling */
+.table-section {
+    padding: 22px;
+    margin-bottom: 35px;
+    border-radius: 12px;
+    border-left: 6px solid transparent;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+/* Section headers */
+.table-section h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    font-weight: 600;
+}
+
+/* Totals */
+.table-total {
+    display: flex;
+    justify-content: flex-end;
+    font-weight: 600;
+    font-size: 15px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    color: #1c2e5b;
+}
+
+/* Color variants */
+.bills-section {
+    border-left-color: #4a6ee0;
+    background: #f4f7ff;
+}
+
+.items-section {
+    border-left-color: #2ca58d;
+    background: #f3fcf8;
+}
+
+.employees-section {
+    border-left-color: #d17b88;
+    background: #fff6f7;
+}
+
+/* Icons for each section */
+.bills-section h2::before {
+    content: "💸";
+}
+
+.items-section h2::before {
+    content: "📦";
+}
+
+.employees-section h2::before {
+    content: "🧑‍🔧";
+}
+
+/* Footer */
+.form-footer {
+    background: #eef2ff;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.form-footer button {
+    background: #4a6ee0;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.form-footer button:hover {
+    background: #3a57b8;
+}
+
+.form-footer select,
+.form-footer input[type="text"] {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #c8d4ec;
+    font-size: 14px;
+    width: 100%;
+    max-width: 220px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.data-table th {
+    text-align: left;
+    padding: 8px;
+    background: rgba(0,0,0,0.05);
+    font-weight: 600;
+}
+
+.data-table td {
+    padding: 8px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.data-table tr {
+    transition: height 0.35s ease, opacity 0.35s ease;
+}
+
+.add-row-btn {
+    margin-top: 10px;
+    background: #4a6ee0;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.add-row-btn:hover {
+    background: #3a57b8;
+}
+
+.delete-btn {
+    background: #d9534f;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: #b52b27;
+}
+
+/* ADD ANIMATION */
+.table-row-animate {
+    animation: fadeInRow 0.4s ease;
+}
+
+@keyframes fadeInRow {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* DELETE ANIMATION */
+tr.table-row-remove {
+    display: table-row;
+    overflow: hidden;
+}
+
+
+.table-row-remove {
+    animation: collapseRow 0.35s ease forwards;
+    overflow: hidden;
+    height: var(--row-height);
+}
+
+@keyframes collapseRow {
+    from {
+        opacity: 1;
+        height: var(--row-height);
+    }
+    to {
+        opacity: 0;
+        height: 0;
+    }
+}
+@keyframes rowRemove {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+        height: var(--row-height, 40px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-6px);
+        height: 0;
+    }
+}
