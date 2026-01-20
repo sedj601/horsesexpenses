@@ -1,8 +1,21 @@
 // -------------------------------
+// UTILITY: Safe query helper
+// -------------------------------
+function $(selector) {
+    return document.querySelector(selector);
+}
+
+function $all(selector) {
+    return document.querySelectorAll(selector);
+}
+
+
+
+// -------------------------------
 // ADD ROW ANIMATION
 // -------------------------------
 function animateNewRows() {
-    const newRows = document.querySelectorAll("tr[data-new='true']");
+    const newRows = $all("tr[data-new='true']");
 
     newRows.forEach(row => {
         row.classList.add("table-row-animate");
@@ -20,7 +33,7 @@ function animateNewRows() {
 // DELETE ROW ANIMATION
 // -------------------------------
 function setupDeleteButtons() {
-    const deleteButtons = document.querySelectorAll(".delete-btn");
+    const deleteButtons = $all(".delete-btn");
 
     deleteButtons.forEach(btn => {
         btn.addEventListener("click", event => {
@@ -37,10 +50,9 @@ function setupDeleteButtons() {
 
             // Wait for animation to finish
             setTimeout(() => {
-                // Submit the delete form or trigger your Spring action
                 const form = btn.closest("form");
                 if (form) form.submit();
-            }, 350);
+            }, 600); // match your animation duration
         });
     });
 }
@@ -51,13 +63,12 @@ function setupDeleteButtons() {
 // ADD ROW BUTTONS (Spring handles actual add)
 // -------------------------------
 function setupAddRowButtons() {
-    const addButtons = document.querySelectorAll(".add-row-btn");
+    const addButtons = $all(".add-row-btn");
 
     addButtons.forEach(btn => {
         btn.addEventListener("click", event => {
             event.preventDefault();
 
-            // Submit the form that triggers Spring to add a row
             const form = btn.closest("form");
             if (form) form.submit();
         });
@@ -67,10 +78,45 @@ function setupAddRowButtons() {
 
 
 // -------------------------------
+// MODAL: OPEN & CLOSE
+// -------------------------------
+function setupModal() {
+    const openBtn = $("#billsAddRowBtn");
+    const modal = $("#addBillModal");
+    const cancelBtn = $(".modal-cancel");
+
+    if (!modal) {
+        console.warn("Modal element #addBillModal not found.");
+        return;
+    }
+
+    if (openBtn) {
+        openBtn.addEventListener("click", () => {
+            modal.style.display = "flex";
+        });
+    } else {
+        console.warn("Add Row button #billsAddRowBtn not found.");
+    }
+
+    if (cancelBtn) {
+        cancelBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+    } else {
+        console.warn("Modal cancel button not found.");
+    }
+}
+
+
+
+// -------------------------------
 // INITIALIZE EVERYTHING
 // -------------------------------
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("JS loaded and DOM ready.");
+
     setupDeleteButtons();
     setupAddRowButtons();
     animateNewRows();
+    setupModal();
 });

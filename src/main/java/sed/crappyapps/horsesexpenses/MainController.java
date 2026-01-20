@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import sed.crappyapps.horsesexpenses.model.Bills;
 import sed.crappyapps.horsesexpenses.repositories.BillsRepository;
 import sed.crappyapps.horsesexpenses.repositories.EmployeesRepository;
 import sed.crappyapps.horsesexpenses.repositories.ItemsRepository;
@@ -33,6 +34,13 @@ public class MainController
         return "index";
     }
     
+    @PostMapping("/bills/add")
+    public String addBill(Bills bill) {
+        billsRepository.save(bill);
+        return "redirect:/";
+    }
+
+
     @PostMapping("/bills/delete")
     public String deleteBill(@RequestParam Long id) {
         billsRepository.deleteById(id);

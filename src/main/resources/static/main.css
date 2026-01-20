@@ -66,18 +66,10 @@
     background: #fff6f7;
 }
 
-/* Icons for each section */
-.bills-section h2::before {
-    content: "💸";
-}
-
-.items-section h2::before {
-    content: "📦";
-}
-
-.employees-section h2::before {
-    content: "🧑‍🔧";
-}
+/* Icons */
+.bills-section h2::before { content: "💸"; }
+.items-section h2::before { content: "📦"; }
+.employees-section h2::before { content: "🧑‍🔧"; }
 
 /* Footer */
 .form-footer {
@@ -116,6 +108,7 @@
     max-width: 220px;
 }
 
+/* Table */
 .data-table {
     width: 100%;
     border-collapse: collapse;
@@ -134,10 +127,21 @@
     border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
+/* OPTIONAL BUT HIGHLY RECOMMENDED — Row striping */
+.data-table tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+
+.data-table tbody tr:nth-child(odd) {
+    background: #ffffff;
+}
+
+/* Smooth transitions for height + opacity */
 .data-table tr {
     transition: height 0.35s ease, opacity 0.35s ease;
 }
 
+/* Buttons */
 .add-row-btn {
     margin-top: 10px;
     background: #4a6ee0;
@@ -182,39 +186,111 @@
     }
 }
 
-
-/* DELETE ANIMATION */
+/* DELETE ANIMATION — SHRINK + FADE (VISIBLE VERSION) */
 tr.table-row-remove {
     display: table-row;
     overflow: hidden;
 }
 
-
 .table-row-remove {
-    animation: collapseRow 0.35s ease forwards;
+    animation: shrinkFade 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     overflow: hidden;
     height: var(--row-height);
+    background: #ffecec; /* highlight so animation is visible */
 }
 
-@keyframes collapseRow {
-    from {
-        opacity: 1;
-        height: var(--row-height);
-    }
-    to {
-        opacity: 0;
-        height: 0;
-    }
-}
-@keyframes rowRemove {
+@keyframes shrinkFade {
     0% {
         opacity: 1;
-        transform: translateY(0);
-        height: var(--row-height, 40px);
+        transform: scale(1);
+        height: var(--row-height);
+    }
+    40% {
+        opacity: 0.8;
+        transform: scale(0.97);
+    }
+    70% {
+        opacity: 0.5;
+        transform: scale(0.85);
     }
     100% {
         opacity: 0;
-        transform: translateY(-6px);
+        transform: scale(0.6);
         height: 0;
     }
+}
+
+
+/* Modal overlay */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+/* Modal box */
+.modal-box {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 14px;
+    width: 380px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.modal-box h2 {
+    margin-top: 0;
+    margin-bottom: 18px;
+    color: #1c2e5b;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.modal-form label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+    display: block;
+}
+
+.modal-form input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #c8d4ec;
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.modal-cancel {
+    background: #ccc;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.modal-save {
+    background: #4a6ee0;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
 }
