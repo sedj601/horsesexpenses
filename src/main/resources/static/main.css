@@ -17,6 +17,34 @@
     font-weight: 600;
 }
 
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.table-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.table-header .add-row-btn {
+    margin: 0;
+}
+
+.table-header .add-row-btn {
+    margin: 0;             /* remove extra spacing */
+    padding: 6px 12px;     /* keep your button clean */
+}
+
+
 /* Base table section styling */
 .table-section {
     padding: 22px;
@@ -26,18 +54,8 @@
     box-shadow: 0 4px 14px rgba(0,0,0,0.06);
 }
 
-/* Section headers */
-.table-section h2 {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 20px;
-    margin-top: 0;
-    margin-bottom: 18px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
-    font-weight: 600;
-}
+
+
 
 /* Totals */
 .table-total {
@@ -295,11 +313,4 @@ tr.table-row-remove {
     cursor: pointer;
 }
 
-.center-cell {
-    display: flex; /* Enable Flexbox on the cell */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    height: 100%; /* Ensure the cell takes up available height */
-    /* Remove default table cell behavior that conflicts with flex positioning */
-    vertical-align: top; 
-}
+

@@ -19,7 +19,7 @@ public class Items
     private Long id;
     
     private String name;
-    private int quantity;
+    private BigDecimal quantity;
     
     @Column(name = "cost", precision = 16, scale = 2)
     private BigDecimal cost;
@@ -42,11 +42,11 @@ public class Items
         this.name = name;
     }
 
-    public int getQuantity() {
+    public BigDecimal getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
 

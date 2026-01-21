@@ -39,7 +39,7 @@ public class MainController
         BigDecimal billsTotal = billsRepository.findAll().stream().map(Bills::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
         model.addAttribute("billsTotal", billsTotal.setScale(2, RoundingMode.HALF_UP));
         
-        BigDecimal itemsTotal = itemsRepository.findAll().stream().map(Items::getCost).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal itemsTotal = itemsRepository.findAll().stream().map(item -> item.getQuantity().multiply(item.getCost())).reduce(BigDecimal.ZERO, BigDecimal::add);
         model.addAttribute("itemsTotal", itemsTotal.setScale(2, RoundingMode.HALF_UP));
         
         BigDecimal employeesTotal = employeesRepository.findAll().stream().map(employees -> employees.getHours().multiply(employees.getPay())).reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -60,13 +60,25 @@ public class MainController
         billsRepository.deleteById(id);
         return "redirect:/"; 
     }
-    
+
+    @PostMapping("/items/add")
+    public String addItem(Items item) {
+        itemsRepository.save(item);
+        return "redirect:/";
+    }
+
     @PostMapping("/items/delete")
     public String deleteItem(@RequestParam Long id) {
         itemsRepository.deleteById(id);
         return "redirect:/"; 
     }
-    
+
+    @PostMapping("/employees/add")
+    public String addEmployee(Employees employee) {
+        employeesRepository.save(employee);
+        return "redirect:/";
+    }
+
     @PostMapping("/employees/delete")
     public String deleteEmployees(@RequestParam Long id){
         employeesRepository.deleteById(id);

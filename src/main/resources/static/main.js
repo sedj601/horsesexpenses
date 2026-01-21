@@ -81,30 +81,32 @@ function setupAddRowButtons() {
 // MODAL: OPEN & CLOSE
 // -------------------------------
 function setupModal() {
-    const openBtn = $("#billsAddRowBtn");
-    const modal = $("#addBillModal");
-    const cancelBtn = $(".modal-cancel");
+    const modals = [
+        { open: "#billsAddRowBtn", modal: "#addBillModal" },
+        { open: "#itemsAddRowBtn", modal: "#addItemModal" },
+        { open: "#employeesAddRowBtn", modal: "#addEmployeeModal" }
+    ];
 
-    if (!modal) {
-        console.warn("Modal element #addBillModal not found.");
-        return;
-    }
+    // Attach open handlers
+    modals.forEach(pair => {
+        const openBtn = $(pair.open);
+        const modal = $(pair.modal);
 
-    if (openBtn) {
-        openBtn.addEventListener("click", () => {
-            modal.style.display = "flex";
+        if (openBtn && modal) {
+            openBtn.addEventListener("click", () => {
+                modal.style.display = "flex";
+            });
+        }
+    });
+
+    // Attach close handlers (shared)
+    const cancelButtons = $all(".modal-cancel");
+    cancelButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const modal = btn.closest(".modal-overlay");
+            if (modal) modal.style.display = "none";
         });
-    } else {
-        console.warn("Add Row button #billsAddRowBtn not found.");
-    }
-
-    if (cancelBtn) {
-        cancelBtn.addEventListener("click", () => {
-            modal.style.display = "none";
-        });
-    } else {
-        console.warn("Modal cancel button not found.");
-    }
+    });
 }
 
 
