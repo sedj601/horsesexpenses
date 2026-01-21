@@ -8,9 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import sed.crappyapps.horsesexpenses.model.Employees;
+import sed.crappyapps.horsesexpenses.model.Income;
 import sed.crappyapps.horsesexpenses.repositories.BillsRepository;
 import sed.crappyapps.horsesexpenses.model.Items;
 import sed.crappyapps.horsesexpenses.repositories.EmployeesRepository;
+import sed.crappyapps.horsesexpenses.repositories.IncomeRepository;
 import sed.crappyapps.horsesexpenses.repositories.ItemsRepository;
 
 @SpringBootApplication
@@ -94,6 +96,28 @@ public class HorsesexpensesApplication {
             employeesRepository.save(employees);
             employeesRepository.save(employees2);
             employeesRepository.save(employees3);
+        };
+    }
+
+    @Bean
+    CommandLineRunner initIncomeData(IncomeRepository incomeRepository) {
+        return args -> {
+
+            Income income1 = new Income();
+            income1.setType("Horse Boarding");
+            income1.setAmount(new BigDecimal("10000.00"));
+
+            Income income2 = new Income();
+            income2.setType("Donations");
+            income2.setAmount(new BigDecimal("5000.00"));
+
+            Income income3 = new Income();
+            income3.setType("Lessons");
+            income3.setAmount(new BigDecimal("2000.00"));
+
+            incomeRepository.save(income1);
+            incomeRepository.save(income2);
+            incomeRepository.save(income3);
         };
     }
 }

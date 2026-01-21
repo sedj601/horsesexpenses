@@ -1,141 +1,179 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <link rel="stylesheet" href="../../static/main.css" type="text/css"/>
+<!--link rel="stylesheet" href="../../static/main.css" type="text/css"/-->
+
+    <!-- ===========================
+         BILLS TABLE FRAGMENT
+    =========================== -->
+    <section th:fragment="billsTable" class="table-section bills-section">
+
+        <div class="table-header">
+            <h2>Bills</h2>
+            <button id="billsAddRowBtn" class="add-row-btn">Add Row</button>
+        </div>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Vendor</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th></th> <!-- delete column -->
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="bill : ${bills}">
+                    <td th:text="${bill.vendor}"></td>
+                    <td th:text="${bill.date}"></td>
+                    <td th:text="${bill.amount}"></td>
+
+                    <td>
+                        <form th:action="@{/bills/delete}" method="post">
+                            <input type="hidden" name="id" th:value="${bill.id}"/>
+                            <button class="delete-btn">✖</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
 
-<!-- ===========================
-     BILLS TABLE FRAGMENT
-=========================== -->
-<section th:fragment="billsTable" class="table-section bills-section">
 
-    <div class="table-header">
-        <h2>Bills</h2>
-        <button id="billsAddRowBtn" class="add-row-btn">Add Row</button>
-    </div>
+        <div class="table-total">
+            <span>Total:</span>
+            <span th:text="${billsTotal}"></span>
+        </div>
 
-    <table class="data-table">
-        <thead>
+    </section>
+
+
+
+    <!-- ===========================
+         ITEMS / MATERIALS TABLE
+    =========================== -->
+    <section th:fragment="itemsTable" class="table-section items-section">
+
+
+        <div class="table-header">
+            <h2>Items / Materials</h2>
+            <button id="itemsAddRowBtn" class="add-row-btn">Add Row</button>
+        </div>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Cost</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="item : ${items}">
+                    <td th:text="${item.name}"></td>
+                    <td th:text="${item.quantity}"></td>
+                    <td th:text="${item.cost}"></td>
+
+                    <td>
+                        <form th:action="@{/items/delete}" method="post">
+                            <input type="hidden" name="id" th:value="${item.id}"/>
+                            <button class="delete-btn">✖</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="table-total">
+            <span>Total:</span>
+            <span th:text="${itemsTotal}"></span>
+        </div>
+
+    </section>
+
+
+
+    <!-- ===========================
+         EMPLOYEES TABLE
+    =========================== -->
+    <section th:fragment="employeesTable" class="table-section employees-section">
+
+        <div class="table-header">
+            <h2>Employees</h2>
+            <button id="employeesAddRowBtn" class="add-row-btn">Add Row</button>
+        </div>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Hours</th>
+                    <th>Pay</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="employee : ${employees}">
+                    <td th:text="${employee.name}"></td>
+                    <td th:text="${employee.hours}"></td>
+                    <td th:text="${employee.pay}"></td>
+
+                    <td>
+                        <form th:action="@{/employees/delete}" method="post">
+                            <input type="hidden" name="id" th:value="${employee.id}"/>
+                            <button class="delete-btn">✖</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="table-total">
+            <span>Total:</span>
+            <span th:text="${employeesTotal}"></span>
+        </div>
+
+    </section>
+
+    <!-- ===========================
+             INCOME TABLE
+        =========================== -->
+    <section th:fragment="incomeTable" class="table-section income-section">
+
+        <div class="table-header">
+            <h2>Income</h2>
+            <button id="incomeAddRowBtn" class="add-row-btn">Add Row</button>
+        </div>
+
+        <table class="data-table">
+            <thead>
             <tr>
-                <th>Vendor</th>
-                <th>Date</th>
+                <th>Type</th>
                 <th>Amount</th>
-                <th></th> <!-- delete column -->
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr th:each="bill : ${bills}">
-                <td th:text="${bill.vendor}"></td>
-                <td th:text="${bill.date}"></td>
-                <td th:text="${bill.amount}"></td>
-
-                <td>
-                    <form th:action="@{/bills/delete}" method="post">
-                        <input type="hidden" name="id" th:value="${bill.id}"/>
-                        <button class="delete-btn">✖</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-
-
-    <div class="table-total">
-        <span>Total:</span>
-        <span th:text="${billsTotal}"></span>
-    </div>
-
-</section>
-
-
-
-<!-- ===========================
-     ITEMS / MATERIALS TABLE
-=========================== -->
-<section th:fragment="itemsTable" class="table-section items-section">
-
-
-    <div class="table-header">
-        <h2>Items / Materials</h2>
-        <button id="itemsAddRowBtn" class="add-row-btn">Add Row</button>
-    </div>
-    <table class="data-table">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Qty</th>
-                <th>Cost</th>
                 <th></th>
             </tr>
-        </thead>
+            </thead>
 
-        <tbody>
-            <tr th:each="item : ${items}">
-                <td th:text="${item.name}"></td>
-                <td th:text="${item.quantity}"></td>
-                <td th:text="${item.cost}"></td>
-
+            <tbody>
+            <tr th:each="income : ${incomes}">
+                <td th:text="${income.type}"></td>
+                <td th:text="${income.amount}"></td>
                 <td>
-                    <form th:action="@{/items/delete}" method="post">
-                        <input type="hidden" name="id" th:value="${item.id}"/>
+                    <form th:action="@{/incomes/delete}" method="post">
+                        <input type="hidden" name="id" th:value="${income.id}"/>
                         <button class="delete-btn">✖</button>
                     </form>
                 </td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-    <div class="table-total">
-        <span>Total:</span>
-        <span th:text="${itemsTotal}"></span>
-    </div>
+        <div class="table-total">
+            <span>Total:</span>
+            <span th:text="${incomeTotal}"></span>
+        </div>
 
-</section>
-
-
-
-<!-- ===========================
-     EMPLOYEES TABLE
-=========================== -->
-<section th:fragment="employeesTable" class="table-section employees-section">
-
-    <div class="table-header">
-        <h2>Employees</h2>
-        <button id="employeesAddRowBtn" class="add-row-btn">+ Add Row</button>
-    </div>
-
-    <table class="data-table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Hours</th>
-                <th>Pay</th>
-                <th></th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr th:each="employee : ${employees}">
-                <td th:text="${employee.name}"></td>
-                <td th:text="${employee.hours}"></td>
-                <td th:text="${employee.pay}"></td>
-
-                <td>
-                    <form th:action="@{/employees/delete}" method="post">
-                        <input type="hidden" name="id" th:value="${employee.id}"/>
-                        <button class="delete-btn">✖</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <div class="table-total">
-        <span>Total:</span>
-        <span th:text="${employeesTotal}"></span>
-    </div>
-
-</section>
-
+    </section>
 </html>

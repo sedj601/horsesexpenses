@@ -85,6 +85,7 @@ function setupModal() {
         { open: "#billsAddRowBtn", modal: "#addBillModal" },
         { open: "#itemsAddRowBtn", modal: "#addItemModal" },
         { open: "#employeesAddRowBtn", modal: "#addEmployeeModal" }
+        { open: "#incomeAddRowBtn", modal: "#addIncomeModal" }
     ];
 
     // Attach open handlers

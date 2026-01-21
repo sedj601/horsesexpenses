@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import sed.crappyapps.horsesexpenses.model.Bills;
 import sed.crappyapps.horsesexpenses.model.Employees;
+import sed.crappyapps.horsesexpenses.model.Income;
 import sed.crappyapps.horsesexpenses.model.Items;
 import sed.crappyapps.horsesexpenses.repositories.BillsRepository;
 import sed.crappyapps.horsesexpenses.repositories.EmployeesRepository;
+import sed.crappyapps.horsesexpenses.repositories.IncomeRepository;
 import sed.crappyapps.horsesexpenses.repositories.ItemsRepository;
 
 @Controller
@@ -28,14 +30,17 @@ public class MainController
     private ItemsRepository itemsRepository;
     @Autowired
     private EmployeesRepository employeesRepository;
-            
+    @Autowired
+    private IncomeRepository incomeRepository;
+
     @GetMapping("/")
     public String index(Model model)
     {
         model.addAttribute("bills", billsRepository.findAll());
         model.addAttribute("items", itemsRepository.findAll());
         model.addAttribute("employees", employeesRepository.findAll());
-        
+        model.addAttribute("incomes", incomeRepository.findAll());
+
         BigDecimal billsTotal = billsRepository.findAll().stream().map(Bills::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
         model.addAttribute("billsTotal", billsTotal.setScale(2, RoundingMode.HALF_UP));
         
@@ -44,7 +49,10 @@ public class MainController
         
         BigDecimal employeesTotal = employeesRepository.findAll().stream().map(employees -> employees.getHours().multiply(employees.getPay())).reduce(BigDecimal.ZERO, BigDecimal::add);
         model.addAttribute("employeesTotal", employeesTotal.setScale(2, RoundingMode.HALF_UP));
-        
+
+        BigDecimal incomeTotal = incomeRepository.findAll().stream().map(Income::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        model.addAttribute("incomeTotal", incomeTotal.setScale(2, RoundingMode.HALF_UP));
+
         return "index";
     }
     
@@ -82,6 +90,18 @@ public class MainController
     @PostMapping("/employees/delete")
     public String deleteEmployees(@RequestParam Long id){
         employeesRepository.deleteById(id);
+        return "redirect:/";
+    }
+
+    @PostMapping("/incomes/add")
+    public String addIncome(Income income) {
+        incomeRepository.save(income);
+        return "redirect:/";
+    }
+
+    @PostMapping("/incomes/delete")
+    public String deleteIncome(@RequestParam Long id){
+        incomeRepository.deleteById(id);
         return "redirect:/";
     }
 }
