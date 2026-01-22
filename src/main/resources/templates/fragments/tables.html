@@ -144,7 +144,7 @@
 
         <div class="table-header">
             <h2>Income</h2>
-            <button id="incomeAddRowBtn" class="add-row-btn">Add Row</button>
+            <button id="incomesAddRowBtn" class="add-row-btn">Add Row</button>
         </div>
 
         <table class="data-table">
@@ -160,7 +160,7 @@
             <tr th:each="income : ${incomes}">
                 <td th:text="${income.type}"></td>
                 <td th:text="${income.amount}"></td>
-                <td>
+                <td th:unless="${income.type == 'Horse Boarding'}">
                     <form th:action="@{/incomes/delete}" method="post">
                         <input type="hidden" name="id" th:value="${income.id}"/>
                         <button class="delete-btn">✖</button>
@@ -176,4 +176,32 @@
         </div>
 
     </section>
+
+<section th:fragment="reportTable" class="table-section report-section">
+
+    <div class="table-header">
+        <h2>Report</h2>
+    </div>
+
+    <table class="data-table">
+        <thead>
+        <tr>
+            <th>Num Of Horses</th>
+            <th>Expenses Total</th>
+            <th>Income Total</th>
+            <th>Difference</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="report : ${reports}">
+            <td th:text="${report.numberOfHorses}"></td>
+            <td th:text="${report.expensesTotal}"></td>
+            <td th:text="${report.incomeTotal}"></td>
+            <td th:text="${report.difference}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</section>
 </html>

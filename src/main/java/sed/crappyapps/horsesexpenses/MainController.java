@@ -12,14 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import sed.crappyapps.horsesexpenses.model.Bills;
-import sed.crappyapps.horsesexpenses.model.Employees;
-import sed.crappyapps.horsesexpenses.model.Income;
-import sed.crappyapps.horsesexpenses.model.Items;
-import sed.crappyapps.horsesexpenses.repositories.BillsRepository;
-import sed.crappyapps.horsesexpenses.repositories.EmployeesRepository;
-import sed.crappyapps.horsesexpenses.repositories.IncomeRepository;
-import sed.crappyapps.horsesexpenses.repositories.ItemsRepository;
+import sed.crappyapps.horsesexpenses.model.*;
+import sed.crappyapps.horsesexpenses.repositories.*;
 
 @Controller
 public class MainController 
@@ -32,6 +26,8 @@ public class MainController
     private EmployeesRepository employeesRepository;
     @Autowired
     private IncomeRepository incomeRepository;
+    @Autowired
+    private ReportRepository reportRepository;
 
     @GetMapping("/")
     public String index(Model model)
@@ -40,6 +36,10 @@ public class MainController
         model.addAttribute("items", itemsRepository.findAll());
         model.addAttribute("employees", employeesRepository.findAll());
         model.addAttribute("incomes", incomeRepository.findAll());
+        Income horseBoardingIncome = incomeRepository.findAll().getFirst();
+        model.addAttribute("horseBoardingId", horseBoardingIncome.getId());
+        model.addAttribute("report", horseBoardingIncome);
+
 
         BigDecimal billsTotal = billsRepository.findAll().stream().map(Bills::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
         model.addAttribute("billsTotal", billsTotal.setScale(2, RoundingMode.HALF_UP));
@@ -52,6 +52,8 @@ public class MainController
 
         BigDecimal incomeTotal = incomeRepository.findAll().stream().map(Income::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
         model.addAttribute("incomeTotal", incomeTotal.setScale(2, RoundingMode.HALF_UP));
+
+        model.addAttribute("reportOutput", reportRepository.findAll());
 
         return "index";
     }
@@ -102,6 +104,17 @@ public class MainController
     @PostMapping("/incomes/delete")
     public String deleteIncome(@RequestParam Long id){
         incomeRepository.deleteById(id);
+        return "redirect:/";
+    }
+
+    @PostMapping("/income/update")
+    public String updateIncome(BoardingCost boardingCost) {
+        Income horseBoardingIncome = incomeRepository.findById(boardingCost.getId()).orElseThrow(() -> new RuntimeException("User not found"));;
+        horseBoardingIncome.setAmount(boardingCost.getPricePerHorse().multiply(new BigDecimal(boardingCost.getNumberOfHorses())));
+        incomeRepository.save(horseBoardingIncome);
+
+        int initialNumber = Math.max(boardingCost.getNumberOfHorses() - 3, 0);
+        int endNumber = boardingCost.getNumberOfHorses() + 7);
         return "redirect:/";
     }
 }

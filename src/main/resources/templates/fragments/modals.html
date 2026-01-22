@@ -73,14 +73,11 @@
         <div class="modal-box">
             <h2>Add New Income</h2>
             <form action="/incomes/add" method="post" class="modal-form">
-                <label>Name</label>
-                <input type="text" name="name" required>
+                <label>Type</label>
+                <input type="text" name="type" required>
 
-                <label>Hours</label>
-                <input type="number" step="0.01" name="hours" required>
-
-                <label>Hourly Rate</label>
-                <input type="number" step="0.01" name="pay" required>
+                <label>Amount</label>
+                <input type="number" step="0.01" name="amount" required>
 
                 <div class="modal-actions">
                     <button type="button" class="modal-cancel">Cancel</button>

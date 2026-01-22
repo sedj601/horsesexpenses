@@ -17,11 +17,11 @@ public class Income
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    @Column(unique = true, nullable = false)
     private String type;
 
-    @Column(name = "amount", precision = 16, scale = 2)
-    private BigDecimal amount;
+    @Column(name = "amount", precision = 16, scale = 2, nullable = false)
+    private BigDecimal amount = new BigDecimal("0.00");
 
     public Income(){};
 

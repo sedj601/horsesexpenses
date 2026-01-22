@@ -4,16 +4,17 @@
 
     <footer th:fragment="footerSection" class="form-footer">
 
-        <button>Add New</button>
+        <form action="/income/update" method="post">
+            <input type="hidden" name="id" th:value="${horseBoardingId}"/>
+            <input type="hidden" name="type" readonly value="Horse Boarding">
 
-        <select>
-            <option>Select Type</option>
-            <option>Bill</option>
-            <option>Item</option>
-            <option>Employee</option>
-        </select>
+            <input type="number" step="1" name="numberOfHorses" min="0" placeholder="Number of horses" required>
 
-        <input type="text" placeholder="Enter title here"/>
+            <input type="number" step="0.01" name="pricePerHorse" placeholder="Cost per horse" min="0" required>
+
+            <button type="submit">Update</button>
+        </form>
+
 
     </footer>
 

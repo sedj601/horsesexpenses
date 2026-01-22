@@ -105,7 +105,7 @@ public class HorsesexpensesApplication {
 
             Income income1 = new Income();
             income1.setType("Horse Boarding");
-            income1.setAmount(new BigDecimal("10000.00"));
+            income1.setAmount(new BigDecimal("0.00"));
 
             Income income2 = new Income();
             income2.setType("Donations");

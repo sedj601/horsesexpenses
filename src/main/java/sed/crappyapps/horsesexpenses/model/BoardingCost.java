@@ -2,31 +2,22 @@ package sed.crappyapps.horsesexpenses.model;
 
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+
 import java.math.BigDecimal;
 
 
-
-@Entity
-public class Boarding
+public class BoardingCost
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
     private String type;
     private int numberOfHorses;
-    @Column(name = "pricePerHorse", precision = 16, scale = 2)
     private BigDecimal pricePerHorse;
 
-    public Boarding(){};
+    public BoardingCost(){};
 
-    public Boarding(int numberOfHorses, BigDecimal pricePerHorse) {
-        this.type = "Horses";
+    public BoardingCost(Long id, String type, int numberOfHorses, BigDecimal pricePerHorse) {
+        this.id = id;
+        this.type = "Horse Boarding";
         this.numberOfHorses = numberOfHorses;
         this.pricePerHorse = pricePerHorse;
     }
