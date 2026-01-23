@@ -1,20 +1,40 @@
 package sed.crappyapps.horsesexpenses.model;
 
+
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 
+@Entity
 public class Report
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "numberOfHorses", precision = 16, scale = 2, nullable = false)
     BigDecimal numberOfHorses = new BigDecimal("0.00");
+    @Column(name = "pricePerHorse", precision = 16, scale = 2, nullable = false)
+    BigDecimal pricePerHorse = new BigDecimal("0.00");
+    @Column(name = "expensesTotal", precision = 16, scale = 2, nullable = false)
     BigDecimal expensesTotal = new BigDecimal("0.00");
+    @Column(name = "incomeTotalMinusHorseBoarding", precision = 16, scale = 2, nullable = false)
+    BigDecimal incomeTotalMinusHorseBoarding = new BigDecimal("0.00");
+
+    @Transient
     BigDecimal incomeTotal = new BigDecimal("0.00");
+    @Transient
     BigDecimal difference = new BigDecimal("0.00");
 
-    public Report(BigDecimal numberOfHorses, BigDecimal expensesTotal, BigDecimal incomeTotal)
+    public Report(){};
+
+    public Report(BigDecimal numberOfHorses, BigDecimal pricePerHorse, BigDecimal expensesTotal, BigDecimal incomeTotalMinusHorseBoarding)
     {
         this.numberOfHorses = numberOfHorses;
+        this.pricePerHorse = pricePerHorse;
         this.expensesTotal = expensesTotal;
-        this.incomeTotal = incomeTotal;
-        this.difference = incomeTotal.subtract(difference);
+        this.incomeTotalMinusHorseBoarding = incomeTotalMinusHorseBoarding;
+
     }
 
     public BigDecimal getNumberOfHorses() {
@@ -25,12 +45,12 @@ public class Report
         this.numberOfHorses = numberOfHorses;
     }
 
-    public BigDecimal getIncomeTotal() {
-        return incomeTotal;
+    public BigDecimal getIncomeTotalMinusHorseBoarding() {
+        return incomeTotalMinusHorseBoarding;
     }
 
-    public void setIncomeTotal(BigDecimal incomeTotal) {
-        this.incomeTotal = incomeTotal;
+    public void setIncomeTotalMinusHorseBoarding(BigDecimal incomeTotalMinusHorseBoarding) {
+        this.incomeTotalMinusHorseBoarding = incomeTotalMinusHorseBoarding;
     }
 
     public BigDecimal getExpensesTotal() {
@@ -41,9 +61,18 @@ public class Report
         this.expensesTotal = expensesTotal;
     }
 
+    public BigDecimal getIncomeTotal()
+    {
+        this.incomeTotal = incomeTotalMinusHorseBoarding.add(numberOfHorses.multiply(pricePerHorse));
+
+        return incomeTotal;
+    }
+
     public BigDecimal getDifference() {
+        this.difference = incomeTotal.subtract(expensesTotal);
         return difference;
     }
+
 
     @Override
     public String toString() {

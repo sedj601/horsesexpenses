@@ -6,6 +6,9 @@ package sed.crappyapps.horsesexpenses;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -114,7 +117,23 @@ public class MainController
         incomeRepository.save(horseBoardingIncome);
 
         int initialNumber = Math.max(boardingCost.getNumberOfHorses() - 3, 0);
-        int endNumber = boardingCost.getNumberOfHorses() + 7);
+        int endNumber = boardingCost.getNumberOfHorses() + 7;
+        BigDecimal billsTotal = billsRepository.findAll().stream().map(Bills::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal itemsTotal = itemsRepository.findAll().stream().map(item -> item.getQuantity().multiply(item.getCost())).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal employeesTotal = employeesRepository.findAll().stream().map(employees -> employees.getHours().multiply(employees.getPay())).reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        List<Income> incomeListMinusHorseBoarding = new ArrayList<>(incomeRepository.findAll());
+        incomeListMinusHorseBoarding.removeIf(income -> income.getType().equals("Horse Boarding"));
+        BigDecimal incomeTotalMisusBoardingCost = incomeListMinusHorseBoarding.stream().map(Income::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal expenseTotal = billsTotal.add(itemsTotal.add(employeesTotal));
+
+        for(int i = initialNumber; i < endNumber; i++)
+        {
+            Report report = new Report(new BigDecimal(i), boardingCost.getPricePerHorse(), expenseTotal, incomeTotalMisusBoardingCost);
+            reportRepository.save(report);
+        }
+
         return "redirect:/";
     }
 }
