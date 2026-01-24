@@ -1,0 +1,23 @@
+/* ============================
+   SECTIONS — Themed Blocks
+   ============================ */
+
+.bills-section {
+    border-left-color: #4a6ee0;
+    background: #f4f7ff;
+}
+
+.items-section {
+    border-left-color: #2ca58d;
+    background: #f3fcf8;
+}
+
+.employees-section {
+    border-left-color: #d17b88;
+    background: #fff6f7;
+}
+
+/* Icons */
+.bills-section h2::before { content: "💸"; }
+.items-section h2::before { content: "📦"; }
+.employees-section h2::before { content: "🧑‍🔧"; }

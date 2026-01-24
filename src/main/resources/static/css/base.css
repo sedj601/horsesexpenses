@@ -1,0 +1,32 @@
+/* ============================
+   BASE — Global Styles
+   ============================ */
+
+:root {
+    /* You can expand these later */
+    --primary-blue: #4a6ee0;
+    --primary-blue-dark: #3a57b8;
+    --danger-red: #d9534f;
+    --danger-red-dark: #b52b27;
+    --text-dark: #1c2e5b;
+    --border-light: rgba(0,0,0,0.08);
+}
+
+/* Wrapper */
+.form-wrapper {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+}
+
+/* Header */
+.form-header h1 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 35px;
+    color: var(--text-dark);
+    font-weight: 600;
+}

@@ -1,0 +1,31 @@
+/* ============================
+   BUTTONS — Global Button Styles
+   ============================ */
+
+.add-row-btn {
+    background: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 0;
+}
+
+.add-row-btn:hover {
+    background: var(--primary-blue-dark);
+}
+
+.delete-btn {
+    background: var(--danger-red);
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: var(--danger-red-dark);
+}

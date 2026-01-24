@@ -16,122 +16,122 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import sed.crappyapps.horsesexpenses.model.*;
-import sed.crappyapps.horsesexpenses.repositories.*;
+import sed.crappyapps.horsesexpenses.services.*;
 
 @Controller
 public class MainController 
 {
     @Autowired
-    private BillsRepository billsRepository;
+    private BillService billService;
     @Autowired
-    private ItemsRepository itemsRepository;
+    private ItemsService itemsService;
     @Autowired
-    private EmployeesRepository employeesRepository;
+    private EmployeeService employeeService;
     @Autowired
-    private IncomeRepository incomeRepository;
+    private IncomeService incomeService;
     @Autowired
-    private ReportRepository reportRepository;
+    private ReportService reportService;
 
     @GetMapping("/")
     public String index(Model model)
     {
-        model.addAttribute("bills", billsRepository.findAll());
-        model.addAttribute("items", itemsRepository.findAll());
-        model.addAttribute("employees", employeesRepository.findAll());
-        model.addAttribute("incomes", incomeRepository.findAll());
-        Income horseBoardingIncome = incomeRepository.findAll().getFirst();
+        model.addAttribute("bills", billService.findAll());
+        model.addAttribute("items", itemsService.findAll());
+        model.addAttribute("employees", employeeService.findAll());
+        model.addAttribute("incomes", incomeService.findAll());
+        Income horseBoardingIncome = incomeService.findAll().getFirst();
         model.addAttribute("horseBoardingId", horseBoardingIncome.getId());
         model.addAttribute("report", horseBoardingIncome);
 
 
-        BigDecimal billsTotal = billsRepository.findAll().stream().map(Bills::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal billsTotal = billService.findAll().stream().map(Bills::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
         model.addAttribute("billsTotal", billsTotal.setScale(2, RoundingMode.HALF_UP));
         
-        BigDecimal itemsTotal = itemsRepository.findAll().stream().map(item -> item.getQuantity().multiply(item.getCost())).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal itemsTotal = itemsService.findAll().stream().map(item -> item.getQuantity().multiply(item.getCost())).reduce(BigDecimal.ZERO, BigDecimal::add);
         model.addAttribute("itemsTotal", itemsTotal.setScale(2, RoundingMode.HALF_UP));
         
-        BigDecimal employeesTotal = employeesRepository.findAll().stream().map(employees -> employees.getHours().multiply(employees.getPay())).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal employeesTotal = employeeService.findAll().stream().map(employees -> employees.getHours().multiply(employees.getPay())).reduce(BigDecimal.ZERO, BigDecimal::add);
         model.addAttribute("employeesTotal", employeesTotal.setScale(2, RoundingMode.HALF_UP));
 
-        BigDecimal incomeTotal = incomeRepository.findAll().stream().map(Income::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal incomeTotal = incomeService.findAll().stream().map(Income::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
         model.addAttribute("incomeTotal", incomeTotal.setScale(2, RoundingMode.HALF_UP));
 
-        model.addAttribute("reportOutput", reportRepository.findAll());
+        model.addAttribute("reportOutput", reportService.findAll());
 
         return "index";
     }
     
     @PostMapping("/bills/add")
     public String addBill(Bills bill) {
-        billsRepository.save(bill);
+        billService.save(bill);
         return "redirect:/";
     }
 
 
     @PostMapping("/bills/delete")
     public String deleteBill(@RequestParam Long id) {
-        billsRepository.deleteById(id);
+        billService.deleteById(id);
         return "redirect:/"; 
     }
 
     @PostMapping("/items/add")
     public String addItem(Items item) {
-        itemsRepository.save(item);
+        itemsService.save(item);
         return "redirect:/";
     }
 
     @PostMapping("/items/delete")
     public String deleteItem(@RequestParam Long id) {
-        itemsRepository.deleteById(id);
+        itemsService.deleteById(id);
         return "redirect:/"; 
     }
 
     @PostMapping("/employees/add")
     public String addEmployee(Employees employee) {
-        employeesRepository.save(employee);
+        employeeService.save(employee);
         return "redirect:/";
     }
 
     @PostMapping("/employees/delete")
     public String deleteEmployees(@RequestParam Long id){
-        employeesRepository.deleteById(id);
+        employeeService.deleteById(id);
         return "redirect:/";
     }
 
     @PostMapping("/incomes/add")
     public String addIncome(Income income) {
-        incomeRepository.save(income);
+        incomeService.save(income);
         return "redirect:/";
     }
 
     @PostMapping("/incomes/delete")
     public String deleteIncome(@RequestParam Long id){
-        incomeRepository.deleteById(id);
+        incomeService.deleteById(id);
         return "redirect:/";
     }
 
     @PostMapping("/income/update")
     public String updateIncome(BoardingCost boardingCost) {
-        Income horseBoardingIncome = incomeRepository.findById(boardingCost.getId()).orElseThrow(() -> new RuntimeException("User not found"));;
+        Income horseBoardingIncome = incomeService.findById(boardingCost.getId()).orElseThrow(() -> new RuntimeException("User not found"));;
         horseBoardingIncome.setAmount(boardingCost.getPricePerHorse().multiply(new BigDecimal(boardingCost.getNumberOfHorses())));
-        incomeRepository.save(horseBoardingIncome);
+        incomeService.save(horseBoardingIncome);
 
         int initialNumber = Math.max(boardingCost.getNumberOfHorses() - 3, 0);
         int endNumber = boardingCost.getNumberOfHorses() + 7;
-        BigDecimal billsTotal = billsRepository.findAll().stream().map(Bills::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
-        BigDecimal itemsTotal = itemsRepository.findAll().stream().map(item -> item.getQuantity().multiply(item.getCost())).reduce(BigDecimal.ZERO, BigDecimal::add);
-        BigDecimal employeesTotal = employeesRepository.findAll().stream().map(employees -> employees.getHours().multiply(employees.getPay())).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal billsTotal = billService.findAll().stream().map(Bills::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal itemsTotal = itemsService.findAll().stream().map(item -> item.getQuantity().multiply(item.getCost())).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal employeesTotal = employeeService.findAll().stream().map(employees -> employees.getHours().multiply(employees.getPay())).reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        List<Income> incomeListMinusHorseBoarding = new ArrayList<>(incomeRepository.findAll());
+        List<Income> incomeListMinusHorseBoarding = new ArrayList<>(incomeService.findAll());
         incomeListMinusHorseBoarding.removeIf(income -> income.getType().equals("Horse Boarding"));
-        BigDecimal incomeTotalMisusBoardingCost = incomeListMinusHorseBoarding.stream().map(Income::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal incomeTotalMinusBoardingCost = incomeListMinusHorseBoarding.stream().map(Income::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
 
         BigDecimal expenseTotal = billsTotal.add(itemsTotal.add(employeesTotal));
 
         for(int i = initialNumber; i < endNumber; i++)
         {
-            Report report = new Report(new BigDecimal(i), boardingCost.getPricePerHorse(), expenseTotal, incomeTotalMisusBoardingCost);
-            reportRepository.save(report);
+            Report report = new Report(new BigDecimal(i), boardingCost.getPricePerHorse(), expenseTotal, incomeTotalMinusBoardingCost);
+            reportService.save(report);
         }
 
         return "redirect:/";

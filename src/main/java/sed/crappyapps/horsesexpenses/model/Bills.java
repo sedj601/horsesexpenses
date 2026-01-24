@@ -20,11 +20,12 @@ public class Bills
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    
     private String vendor;
+
     private String date;
     
     @Column(name = "amount", precision = 16, scale = 2)
+
     private BigDecimal amount;
 
     public Bills(){};

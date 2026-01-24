@@ -1,0 +1,70 @@
+/* ============================
+   MODALS — Overlay & Form
+   ============================ */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-box {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 14px;
+    width: 380px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    animation: modalFadeIn 0.3s ease;
+}
+
+.modal-box h2 {
+    margin-top: 0;
+    margin-bottom: 18px;
+    color: var(--text-dark);
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.modal-form label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+    display: block;
+}
+
+.modal-form input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #c8d4ec;
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.modal-cancel {
+    background: #ccc;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.modal-save {
+    background: var(--primary-blue);
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}

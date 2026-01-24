@@ -1,0 +1,61 @@
+/* ============================
+   TABLES — Structure & Styling
+   ============================ */
+
+/* Header row above each table */
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.table-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Table */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+.data-table th {
+    text-align: left;
+    padding: 8px;
+    background: rgba(0,0,0,0.05);
+    font-weight: 600;
+}
+
+.data-table td {
+    padding: 8px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* Row striping */
+.data-table tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+
+.data-table tbody tr:nth-child(odd) {
+    background: #ffffff;
+}
+
+/* Totals */
+.table-total {
+    display: flex;
+    justify-content: flex-end;
+    font-weight: 600;
+    font-size: 15px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-light);
+    color: var(--text-dark);
+}
