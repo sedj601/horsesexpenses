@@ -4,19 +4,28 @@
  */
 package sed.crappyapps.horsesexpenses;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import sed.crappyapps.horsesexpenses.model.*;
-import sed.crappyapps.horsesexpenses.services.*;
+import sed.crappyapps.horsesexpenses.model.Bill;
+import sed.crappyapps.horsesexpenses.model.BoardingCost;
+import sed.crappyapps.horsesexpenses.model.Employee;
+import sed.crappyapps.horsesexpenses.model.Income;
+import sed.crappyapps.horsesexpenses.model.Item;
+import sed.crappyapps.horsesexpenses.model.Report;
+import sed.crappyapps.horsesexpenses.service.BillService;
+import sed.crappyapps.horsesexpenses.service.EmployeeService;
+import sed.crappyapps.horsesexpenses.service.IncomeService;
+import sed.crappyapps.horsesexpenses.service.ItemService;
+import sed.crappyapps.horsesexpenses.service.ReportService;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class MainController 
@@ -24,7 +33,7 @@ public class MainController
     @Autowired
     private BillService billService;
     @Autowired
-    private ItemsService itemsService;
+    private ItemService itemsService;
     @Autowired
     private EmployeeService employeeService;
     @Autowired
@@ -44,13 +53,13 @@ public class MainController
         model.addAttribute("report", horseBoardingIncome);
 
 
-        BigDecimal billsTotal = billService.findAll().stream().map(Bills::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal billsTotal = billService.findAll().stream().map(Bill::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
         model.addAttribute("billsTotal", billsTotal.setScale(2, RoundingMode.HALF_UP));
         
         BigDecimal itemsTotal = itemsService.findAll().stream().map(item -> item.getQuantity().multiply(item.getCost())).reduce(BigDecimal.ZERO, BigDecimal::add);
         model.addAttribute("itemsTotal", itemsTotal.setScale(2, RoundingMode.HALF_UP));
         
-        BigDecimal employeesTotal = employeeService.findAll().stream().map(employees -> employees.getHours().multiply(employees.getPay())).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal employeesTotal = employeeService.findAll().stream().map(employee -> employee.getHours().multiply(employee.getPay())).reduce(BigDecimal.ZERO, BigDecimal::add);
         model.addAttribute("employeesTotal", employeesTotal.setScale(2, RoundingMode.HALF_UP));
 
         BigDecimal incomeTotal = incomeService.findAll().stream().map(Income::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -62,7 +71,7 @@ public class MainController
     }
     
     @PostMapping("/bills/add")
-    public String addBill(Bills bill) {
+    public String addBill(Bill bill) {
         billService.save(bill);
         return "redirect:/";
     }
@@ -75,7 +84,7 @@ public class MainController
     }
 
     @PostMapping("/items/add")
-    public String addItem(Items item) {
+    public String addItem(Item item) {
         itemsService.save(item);
         return "redirect:/";
     }
@@ -87,7 +96,7 @@ public class MainController
     }
 
     @PostMapping("/employees/add")
-    public String addEmployee(Employees employee) {
+    public String addEmployee(Employee employee) {
         employeeService.save(employee);
         return "redirect:/";
     }
@@ -118,9 +127,9 @@ public class MainController
 
         int initialNumber = Math.max(boardingCost.getNumberOfHorses() - 3, 0);
         int endNumber = boardingCost.getNumberOfHorses() + 7;
-        BigDecimal billsTotal = billService.findAll().stream().map(Bills::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal billsTotal = billService.findAll().stream().map(Bill::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
         BigDecimal itemsTotal = itemsService.findAll().stream().map(item -> item.getQuantity().multiply(item.getCost())).reduce(BigDecimal.ZERO, BigDecimal::add);
-        BigDecimal employeesTotal = employeeService.findAll().stream().map(employees -> employees.getHours().multiply(employees.getPay())).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal employeesTotal = employeeService.findAll().stream().map(employee -> employee.getHours().multiply(employee.getPay())).reduce(BigDecimal.ZERO, BigDecimal::add);
 
         List<Income> incomeListMinusHorseBoarding = new ArrayList<>(incomeService.findAll());
         incomeListMinusHorseBoarding.removeIf(income -> income.getType().equals("Horse Boarding"));

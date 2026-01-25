@@ -6,31 +6,38 @@ package sed.crappyapps.horsesexpenses.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 
 
 
 @Entity
-public class Bills 
+public class Bill
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Vendor is required!")
     private String vendor;
 
+    @NotBlank(message = "Date is required!")
     private String date;
-    
-    @Column(name = "amount", precision = 16, scale = 2)
 
+    @NotNull(message = "Amount is required!")
+    @DecimalMin("0.01")
+    @Column(name = "amount", precision = 16, scale = 2)
     private BigDecimal amount;
 
-    public Bills(){};
+    public Bill(){};
     
-    public Bills(String vendor, String date, BigDecimal amount) {
+    public Bill(String vendor, String date, BigDecimal amount) {
         this.vendor = vendor;
         this.date = date;
         this.amount = amount;

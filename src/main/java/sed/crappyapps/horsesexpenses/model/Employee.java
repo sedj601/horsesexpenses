@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 
 
 @Entity
-public class Employees 
+public class Employee
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class Employees
     @Column(name = "pay", precision = 16, scale = 2)
     private BigDecimal pay;
 
-    public Employees(){};
+    public Employee(){};
 
     public Long getId() {
         return id;
@@ -66,7 +66,7 @@ public class Employees
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Employees{");
+        sb.append("Employee{");
         sb.append("id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", hours=").append(hours);

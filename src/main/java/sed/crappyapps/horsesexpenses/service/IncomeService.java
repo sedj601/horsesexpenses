@@ -1,8 +1,8 @@
-package sed.crappyapps.horsesexpenses.services;
+package sed.crappyapps.horsesexpenses.service;
 
 import org.springframework.stereotype.Service;
 import sed.crappyapps.horsesexpenses.model.Income;
-import sed.crappyapps.horsesexpenses.repositories.IncomeRepository;
+import sed.crappyapps.horsesexpenses.repository.IncomeRepository;
 
 import java.util.List;
 import java.util.Optional;

@@ -2,9 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package sed.crappyapps.horsesexpenses.repositories;
+package sed.crappyapps.horsesexpenses.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import sed.crappyapps.horsesexpenses.model.Items;
+import org.springframework.stereotype.Repository;
+import sed.crappyapps.horsesexpenses.model.Employee;
 
-public interface ItemsRepository extends JpaRepository<Items, Long>{}
+@Repository
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {}

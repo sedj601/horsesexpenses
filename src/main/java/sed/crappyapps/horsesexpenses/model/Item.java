@@ -12,7 +12,7 @@ import jakarta.persistence.Id;
 import java.math.BigDecimal;
 
 @Entity
-public class Items 
+public class Item
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class Items
     @Column(name = "cost", precision = 16, scale = 2)
     private BigDecimal cost;
     
-    public Items(){};
+    public Item(){};
 
     public Long getId() {
         return id;
@@ -61,7 +61,7 @@ public class Items
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Items{");
+        sb.append("Item{");
         sb.append("id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", quantity=").append(quantity);
