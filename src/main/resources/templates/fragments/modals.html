@@ -4,7 +4,7 @@
     <div th:fragment="billModal" id="addBillModal" class="modal-overlay">
         <div class="modal-box">
             <h2>Add New Bill</h2>
-            <form action="/bills/add" method="post" class="modal-form">
+            <form action="/bill/add" method="post" class="modal-form">
                 <label>Vendor</label>
                 <input type="text" name="vendor" required>
 
@@ -72,7 +72,7 @@
     <div th:fragment="incomeModal" id="addIncomeModal" class="modal-overlay">
         <div class="modal-box">
             <h2>Add New Income</h2>
-            <form action="/incomes/add" method="post" class="modal-form">
+            <form action="/income/add" method="post" class="modal-form">
                 <label>Type</label>
                 <input type="text" name="type" required>
 

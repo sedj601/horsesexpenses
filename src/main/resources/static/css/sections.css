@@ -2,22 +2,45 @@
    SECTIONS — Themed Blocks
    ============================ */
 
-.bills-section {
+.bill-section {
     border-left-color: #4a6ee0;
     background: #f4f7ff;
 }
 
-.items-section {
+.item-section {
     border-left-color: #2ca58d;
     background: #f3fcf8;
 }
 
-.employees-section {
+.employee-section {
     border-left-color: #d17b88;
     background: #fff6f7;
 }
 
+.income-section {
+    border-left-color: #E0C27A;
+    background: #FDF5E6;
+}
+
+.report-section{
+    border-left-color: #363430;
+    background: #f9f9f9;
+}
+
 /* Icons */
-.bills-section h2::before { content: "💸"; }
-.items-section h2::before { content: "📦"; }
-.employees-section h2::before { content: "🧑‍🔧"; }
+.bill-section h2::before { content: "💸"; }
+.item-section h2::before { content: "📦"; }
+.employee-section h2::before { content: "🧑‍🔧"; }
+.income-section h2::before { content: "💰"; }
+.report-section h2::before { content: "📝"; }
+
+/* Add Row Button Color and Hover*/
+#billsAddRowBtn{ background-color: #4a6ee0; }
+#itemsAddRowBtn{ background-color: #2ca58d; }
+#employeesAddRowBtn{ background-color: #d17b88; }
+#incomesAddRowBtn{ background-color: #E0C27A; }
+
+#billsAddRowBtn:hover{ background-color: #304da0; }
+#itemsAddRowBtn:hover{ background-color: #1F7463; }
+#employeesAddRowBtn:hover{ background-color: #984856; }
+#incomesAddRowBtn:hover{ background-color:#C9A655; }

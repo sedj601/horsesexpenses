@@ -4,7 +4,7 @@
     <!-- ===========================
          BILLS TABLE FRAGMENT
     =========================== -->
-    <section th:fragment="billsTable" class="table-section bills-section">
+    <section th:fragment="billTable" class="table-section bill-section">
 
         <div class="table-header">
             <h2>Bills</h2>
@@ -22,7 +22,7 @@
             </thead>
 
             <tbody>
-                <tr th:each="bill : ${bills}">
+                <tr th:each="bill : ${billList}">
                     <td th:text="${bill.vendor}"></td>
                     <td th:text="${bill.date}"></td>
                     <td th:text="${bill.amount}"></td>
@@ -41,7 +41,7 @@
 
         <div class="table-total">
             <span>Total:</span>
-            <span th:text="${billsTotal}"></span>
+            <span th:text="${billTotal}"></span>
         </div>
 
     </section>
@@ -51,7 +51,7 @@
     <!-- ===========================
          ITEMS / MATERIALS TABLE
     =========================== -->
-    <section th:fragment="itemsTable" class="table-section item-section">
+    <section th:fragment="itemTable" class="table-section item-section">
 
 
         <div class="table-header">
@@ -69,7 +69,7 @@
             </thead>
 
             <tbody>
-                <tr th:each="item : ${item}">
+                <tr th:each="item : ${itemList}">
                     <td th:text="${item.name}"></td>
                     <td th:text="${item.quantity}"></td>
                     <td th:text="${item.cost}"></td>
@@ -86,7 +86,7 @@
 
         <div class="table-total">
             <span>Total:</span>
-            <span th:text="${itemsTotal}"></span>
+            <span th:text="${itemTotal}"></span>
         </div>
 
     </section>
@@ -96,7 +96,7 @@
     <!-- ===========================
          EMPLOYEES TABLE
     =========================== -->
-    <section th:fragment="employeesTable" class="table-section employee-section">
+    <section th:fragment="employeeTable" class="table-section employee-section">
 
         <div class="table-header">
             <h2>Employees</h2>
@@ -114,7 +114,7 @@
             </thead>
 
             <tbody>
-                <tr th:each="employee : ${employee}">
+                <tr th:each="employee : ${employeeList}">
                     <td th:text="${employee.name}"></td>
                     <td th:text="${employee.hours}"></td>
                     <td th:text="${employee.pay}"></td>
@@ -131,7 +131,7 @@
 
         <div class="table-total">
             <span>Total:</span>
-            <span th:text="${employeesTotal}"></span>
+            <span th:text="${employeeTotal}"></span>
         </div>
 
     </section>
@@ -156,9 +156,12 @@
             </thead>
 
             <tbody>
-            <tr th:each="income : ${incomes}">
+            <tr th:each="income : ${incomeList}">
                 <td th:text="${income.type}"></td>
                 <td th:text="${income.amount}"></td>
+                <td th:if="${income.type == 'Horse Boarding'}">
+                    <button disabled class="delete-btn">✖</button>
+                </td>
                 <td th:unless="${income.type == 'Horse Boarding'}">
                     <form th:action="@{/incomes/delete}" method="post">
                         <input type="hidden" name="id" th:value="${income.id}"/>
@@ -176,7 +179,7 @@
 
     </section>
 
-<section th:fragment="reportTable" class="table-section report-section">
+<section th:if="${reportOutput != null and !reportOutput.empty}" th:fragment="reportTable" class="table-section report-section">
 
     <div class="table-header">
         <h2>Report</h2>

@@ -8,6 +8,7 @@
     --primary-blue-dark: #3a57b8;
     --danger-red: #d9534f;
     --danger-red-dark: #b52b27;
+    --danger-red-disabled: #e89895;
     --text-dark: #1c2e5b;
     --border-light: rgba(0,0,0,0.08);
 }

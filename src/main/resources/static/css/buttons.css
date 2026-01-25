@@ -1,9 +1,7 @@
 /* ============================
    BUTTONS — Global Button Styles
    ============================ */
-
 .add-row-btn {
-    background: var(--primary-blue);
     color: white;
     border: none;
     padding: 8px 14px;
@@ -11,10 +9,6 @@
     cursor: pointer;
     font-size: 14px;
     margin: 0;
-}
-
-.add-row-btn:hover {
-    background: var(--primary-blue-dark);
 }
 
 .delete-btn {
@@ -28,4 +22,12 @@
 
 .delete-btn:hover {
     background: var(--danger-red-dark);
+}
+
+.delete-btn:disabled {
+    background-color: var(--danger-red-disabled);
+    color: #6c757d; /* Also grey out the text */
+    pointer-events: none; /* Prevent clicks */
+    padding: 6px 10px;
+    border-radius: 6px;
 }

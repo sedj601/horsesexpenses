@@ -48,7 +48,7 @@ public class HorsesexpensesApplication {
     }
     
     @Bean
-    CommandLineRunner initItemsData(ItemRepository itemRepository) {
+    CommandLineRunner initItemData(ItemRepository itemRepository) {
         return args -> {
 
             Item item = new Item();
@@ -73,7 +73,7 @@ public class HorsesexpensesApplication {
     }
     
     @Bean
-    CommandLineRunner initEmployeesData(EmployeeRepository employeesRepository) {
+    CommandLineRunner initEmployeesData(EmployeeRepository employeeRepository) {
         return args -> {
 
             Employee employee = new Employee();
@@ -91,9 +91,9 @@ public class HorsesexpensesApplication {
             employee3.setHours(new BigDecimal(5));
             employee3.setPay(new BigDecimal("100.00"));
 
-            employeesRepository.save(employee);
-            employeesRepository.save(employee2);
-            employeesRepository.save(employee3);
+            employeeRepository.save(employee);
+            employeeRepository.save(employee2);
+            employeeRepository.save(employee3);
         };
     }
 
