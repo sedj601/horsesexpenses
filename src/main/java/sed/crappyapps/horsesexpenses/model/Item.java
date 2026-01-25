@@ -19,7 +19,6 @@ public class Item
     private Long id;
     
     private String name;
-    private BigDecimal quantity;
     
     @Column(name = "cost", precision = 16, scale = 2)
     private BigDecimal cost;
@@ -42,14 +41,6 @@ public class Item
         this.name = name;
     }
 
-    public BigDecimal getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(BigDecimal quantity) {
-        this.quantity = quantity;
-    }
-
     public BigDecimal getCost() {
         return cost;
     }
@@ -64,7 +55,6 @@ public class Item
         sb.append("Item{");
         sb.append("id=").append(id);
         sb.append(", name=").append(name);
-        sb.append(", quantity=").append(quantity);
         sb.append(", cost=").append(cost);
         sb.append('}');
         return sb.toString();

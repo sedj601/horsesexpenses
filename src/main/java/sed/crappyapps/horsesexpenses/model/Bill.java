@@ -27,9 +27,6 @@ public class Bill
     @NotBlank(message = "Vendor is required!")
     private String vendor;
 
-    @NotBlank(message = "Date is required!")
-    private String date;
-
     @NotNull(message = "Amount is required!")
     @DecimalMin("0.01")
     @Column(name = "amount", precision = 16, scale = 2)
@@ -37,9 +34,8 @@ public class Bill
 
     public Bill(){};
     
-    public Bill(String vendor, String date, BigDecimal amount) {
+    public Bill(String vendor, BigDecimal amount) {
         this.vendor = vendor;
-        this.date = date;
         this.amount = amount;
     }
 
@@ -68,20 +64,11 @@ public class Bill
         this.vendor = vendor;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Bill{");
         sb.append("vendor=").append(vendor);
-        sb.append(", date=").append(date);
         sb.append(", amount=").append(amount);
         sb.append('}');
         return sb.toString();

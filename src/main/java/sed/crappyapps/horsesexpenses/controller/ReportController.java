@@ -12,6 +12,7 @@ import sed.crappyapps.horsesexpenses.service.EmployeeService;
 import sed.crappyapps.horsesexpenses.service.IncomeService;
 import sed.crappyapps.horsesexpenses.service.ItemService;
 import sed.crappyapps.horsesexpenses.service.ReportService;
+import sed.crappyapps.horsesexpenses.service.TotalService;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -49,9 +50,10 @@ public class ReportController {
 
         int initialNumber = Math.max(boardingCost.getNumberOfHorses() - 3, 0);
         int endNumber = boardingCost.getNumberOfHorses() + 7;
-        BigDecimal billsTotal = billService.findAll().stream().map(Bill::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
-        BigDecimal itemsTotal = itemService.findAll().stream().map(item -> item.getQuantity().multiply(item.getCost())).reduce(BigDecimal.ZERO, BigDecimal::add);
-        BigDecimal employeesTotal = employeeService.findAll().stream().map(employee -> employee.getHours().multiply(employee.getPay())).reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal billsTotal = TotalService.CalculateBillsTotal(billService.findAll());
+        BigDecimal itemsTotal = TotalService.CalculateItemsTotal(itemService.findAll());
+        BigDecimal employeesTotal = TotalService.CalculateEmployeesTotal(employeeService.findAll());
+        BigDecimal incomeTotal = TotalService.CalculateIncomeTotal(incomeService.findAll());
 
         List<Income> incomeListMinusHorseBoarding = new ArrayList<>(incomeService.findAll());
         incomeListMinusHorseBoarding.removeIf(income -> income.getType().equals("Horse Boarding"));

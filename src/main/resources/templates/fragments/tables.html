@@ -15,8 +15,7 @@
             <thead>
                 <tr>
                     <th>Vendor</th>
-                    <th>Date</th>
-                    <th>Amount</th>
+                    <th>Monthly Cost</th>
                     <th></th> <!-- delete column -->
                 </tr>
             </thead>
@@ -24,7 +23,6 @@
             <tbody>
                 <tr th:each="bill : ${billList}">
                     <td th:text="${bill.vendor}"></td>
-                    <td th:text="${bill.date}"></td>
                     <td th:text="${bill.amount}"></td>
 
                     <td>
@@ -62,8 +60,7 @@
             <thead>
                 <tr>
                     <th>Item</th>
-                    <th>Qty</th>
-                    <th>Cost</th>
+                    <th>Monthly Cost</th>
                     <th></th>
                 </tr>
             </thead>
@@ -71,7 +68,6 @@
             <tbody>
                 <tr th:each="item : ${itemList}">
                     <td th:text="${item.name}"></td>
-                    <td th:text="${item.quantity}"></td>
                     <td th:text="${item.cost}"></td>
 
                     <td>
@@ -107,8 +103,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Hours</th>
-                    <th>Pay</th>
+                    <th>Monthly Pay</th>
                     <th></th>
                 </tr>
             </thead>
@@ -116,7 +111,6 @@
             <tbody>
                 <tr th:each="employee : ${employeeList}">
                     <td th:text="${employee.name}"></td>
-                    <td th:text="${employee.hours}"></td>
                     <td th:text="${employee.pay}"></td>
 
                     <td>
@@ -150,7 +144,7 @@
             <thead>
             <tr>
                 <th>Type</th>
-                <th>Amount</th>
+                <th>Monthly Amount</th>
                 <th></th>
             </tr>
             </thead>

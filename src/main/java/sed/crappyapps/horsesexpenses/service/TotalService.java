@@ -17,21 +17,16 @@ public class TotalService
 
     static public BigDecimal CalculateItemsTotal(List<Item> itemList)
     {
-        return itemList.stream().map(item -> item.getQuantity().multiply(item.getCost())).reduce(BigDecimal.ZERO, BigDecimal::add);
+        return itemList.stream().map(Item::getCost).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     static public BigDecimal CalculateEmployeesTotal(List<Employee> employeeList)
     {
-        return employeeList.stream().map(employee -> employee.getHours().multiply(employee.getPay())).reduce(BigDecimal.ZERO, BigDecimal::add);
+        return employeeList.stream().map(Employee::getPay).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     static public BigDecimal CalculateIncomeTotal(List<Income> incomeList)
     {
         return incomeList.stream().map(Income::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
-//        BigDecimal employeesTotal =
-//        model.addAttribute("employeesTotal", employeesTotal.setScale(2, RoundingMode.HALF_UP));
-//
-//        BigDecimal incomeTotal =
-//        model.addAttribute("incomeTotal", incomeTotal.setScale(2, RoundingMode.HALF_UP));
 }

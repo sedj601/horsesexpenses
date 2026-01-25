@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 
 
@@ -20,12 +22,10 @@ public class Employee
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    
+    @NotNull
     private String name;
-    
-    @Column(name = "hours", precision = 16, scale = 2)
-    private BigDecimal hours;
-    
+
+    @NotNull
     @Column(name = "pay", precision = 16, scale = 2)
     private BigDecimal pay;
 
@@ -47,14 +47,6 @@ public class Employee
         this.name = name;
     }
 
-    public BigDecimal getHours() {
-        return hours;
-    }
-
-    public void setHours(BigDecimal hours) {
-        this.hours = hours;
-    }
-
     public BigDecimal getPay() {
         return pay;
     }
@@ -69,12 +61,9 @@ public class Employee
         sb.append("Employee{");
         sb.append("id=").append(id);
         sb.append(", name=").append(name);
-        sb.append(", hours=").append(hours);
         sb.append(", pay=").append(pay);
         sb.append('}');
         return sb.toString();
     }
-
-    
 }
 
