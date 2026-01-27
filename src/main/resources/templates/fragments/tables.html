@@ -131,6 +131,47 @@
     </section>
 
     <!-- ===========================
+         Expenses Per Horse TABLE
+    =========================== -->
+    <section th:fragment="horseExpenseTable" class="table-section horseExpense-section">
+
+
+        <div class="table-header">
+            <h2>Items / Materials Cost Per Horse</h2>
+            <button id="horseExpenseAddRowBtn" class="add-row-btn">Add Row</button>
+        </div>
+        <table class="data-table">
+            <thead>
+            <tr>
+                <th>Item</th>
+                <th>Monthly Cost Per Horse</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="horseExpense : ${horseExpenseList}">
+                <td th:text="${horseExpense.name}"></td>
+                <td th:text="${horseExpense.costPerHorse}"></td>
+
+                <td>
+                    <form th:action="@{/horse-expense/delete}" method="post">
+                        <input type="hidden" name="id" th:value="${horseExpense.id}"/>
+                        <button class="delete-btn">✖</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!--div class="table-total">
+            <span>Total:</span>
+            <span th:text="${horseExpenseTotal}"></span>
+        </div-->
+
+    </section>
+
+    <!-- ===========================
              INCOME TABLE
         =========================== -->
     <section th:fragment="incomeTable" class="table-section income-section">

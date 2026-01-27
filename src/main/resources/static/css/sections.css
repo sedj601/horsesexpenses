@@ -12,6 +12,11 @@
     background: #f3fcf8;
 }
 
+.horseExpense-section{
+    border-left-color: #C5A086;
+    background: #E6D3C5;
+}
+
 .employee-section {
     border-left-color: #d17b88;
     background: #fff6f7;
@@ -30,6 +35,7 @@
 /* Icons */
 .bill-section h2::before { content: "💸"; }
 .item-section h2::before { content: "📦"; }
+.horseExpense-section h2::before { content: "🐎"; }
 .employee-section h2::before { content: "🧑‍🔧"; }
 .income-section h2::before { content: "💰"; }
 .report-section h2::before { content: "📝"; }
@@ -37,10 +43,12 @@
 /* Add Row Button Color and Hover*/
 #billsAddRowBtn{ background-color: #4a6ee0; }
 #itemsAddRowBtn{ background-color: #2ca58d; }
+#horseExpenseAddRowBtn{ background-color:#C5A086; }
 #employeesAddRowBtn{ background-color: #d17b88; }
 #incomesAddRowBtn{ background-color: #E0C27A; }
 
 #billsAddRowBtn:hover{ background-color: #304da0; }
 #itemsAddRowBtn:hover{ background-color: #1F7463; }
+#horseExpenseAddRowBtn:hover{ background-color: #A3724F; }
 #employeesAddRowBtn:hover{ background-color: #984856; }
 #incomesAddRowBtn:hover{ background-color:#C9A655; }

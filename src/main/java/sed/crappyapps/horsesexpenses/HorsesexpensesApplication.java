@@ -6,10 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import sed.crappyapps.horsesexpenses.model.Bill;
 import sed.crappyapps.horsesexpenses.model.Employee;
+import sed.crappyapps.horsesexpenses.model.HorseExpense;
 import sed.crappyapps.horsesexpenses.model.Income;
 import sed.crappyapps.horsesexpenses.model.Item;
 import sed.crappyapps.horsesexpenses.repository.BillRepository;
 import sed.crappyapps.horsesexpenses.repository.EmployeeRepository;
+import sed.crappyapps.horsesexpenses.repository.HorseExpenseRepository;
 import sed.crappyapps.horsesexpenses.repository.IncomeRepository;
 import sed.crappyapps.horsesexpenses.repository.ItemRepository;
 
@@ -107,6 +109,23 @@ public class HorsesexpensesApplication {
             incomeRepository.save(income1);
             incomeRepository.save(income2);
             incomeRepository.save(income3);
+        };
+    }
+
+    @Bean
+    CommandLineRunner initHorseExpenseData(HorseExpenseRepository horseExpenseRepository) {
+        return args -> {
+
+            HorseExpense horseExpense1 = new HorseExpense();
+            horseExpense1.setName("Hay");
+            horseExpense1.setCostPerHorse(new BigDecimal("45.00"));
+
+            HorseExpense horseExpense2 = new HorseExpense();
+            horseExpense2.setName("Grain");
+            horseExpense2.setCostPerHorse(new BigDecimal("100.00"));
+
+            horseExpenseRepository.save(horseExpense1);
+            horseExpenseRepository.save(horseExpense2);
         };
     }
 }
