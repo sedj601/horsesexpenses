@@ -84,7 +84,8 @@ function setupModal() {
     const modals = [
         { open: "#billsAddRowBtn", modal: "#addBillModal" },
         { open: "#itemsAddRowBtn", modal: "#addItemModal" },
-        { open: "#employeesAddRowBtn", modal: "#addEmployeeModal"},
+        { open: "#horseExpenseAddRowBtn", modal: "#addHorseExpenseModal" },
+        { open: "#employeesAddRowBtn", modal: "#addEmployeeModal" },
         { open: "#incomesAddRowBtn", modal: "#addIncomeModal" }
     ];
 

@@ -24,17 +24,18 @@
             </header>
 
             <div th:replace="~{fragments/tables :: billTable}"></div>
+            <div th:replace="~{fragments/tables :: employeeTable}"></div>
             <div th:replace="~{fragments/tables :: itemTable}"></div>
             <div th:replace="~{fragments/tables :: horseExpenseTable}"></div>
-            <div th:replace="~{fragments/tables :: employeeTable}"></div>
             <div th:replace="~{fragments/tables :: incomeTable}"></div>
-            <div th:replace="~{fragments/footer :: footerSection}"></div>
+            <div th:replace="~{fragments/footer :: footerSection}"></div><!--todo-rename footerSection-->
             <div th:replace="~{fragments/tables :: reportTable}"></div>
         </div>
         
         <div th:replace="~{fragments/modals :: billModal}"></div>
-        <div th:replace="~{fragments/modals :: itemModal}"></div>
         <div th:replace="~{fragments/modals :: employeeModal}"></div>
+        <div th:replace="~{fragments/modals :: itemModal}"></div>
+        <div th:replace="~{fragments/modals :: horseExpenseModal}"></div>
         <div th:replace="~{fragments/modals :: incomeModal}"></div>
     </body>
 </html>
