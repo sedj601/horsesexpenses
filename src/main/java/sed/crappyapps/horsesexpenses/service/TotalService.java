@@ -2,6 +2,7 @@ package sed.crappyapps.horsesexpenses.service;
 
 import sed.crappyapps.horsesexpenses.model.Bill;
 import sed.crappyapps.horsesexpenses.model.Employee;
+import sed.crappyapps.horsesexpenses.model.HorseExpense;
 import sed.crappyapps.horsesexpenses.model.Income;
 import sed.crappyapps.horsesexpenses.model.Item;
 
@@ -28,5 +29,10 @@ public class TotalService
     static public BigDecimal CalculateIncomeTotal(List<Income> incomeList)
     {
         return incomeList.stream().map(Income::getAmount).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    static public BigDecimal CalculateHorseExpenseTotal(List<HorseExpense> horseExpensesList, int numberOfHorses)
+    {
+        return horseExpensesList.stream().map(HorseExpense::getCostPerHorse).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

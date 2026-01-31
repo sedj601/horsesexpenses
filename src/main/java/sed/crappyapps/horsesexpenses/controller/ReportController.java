@@ -1,6 +1,9 @@
 package sed.crappyapps.horsesexpenses.controller;
 
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import sed.crappyapps.horsesexpenses.model.BoardingCost;
@@ -9,6 +12,7 @@ import sed.crappyapps.horsesexpenses.model.Report;
 import sed.crappyapps.horsesexpenses.model.Bill;
 import sed.crappyapps.horsesexpenses.service.BillService;
 import sed.crappyapps.horsesexpenses.service.EmployeeService;
+import sed.crappyapps.horsesexpenses.service.HorseExpenseService;
 import sed.crappyapps.horsesexpenses.service.IncomeService;
 import sed.crappyapps.horsesexpenses.service.ItemService;
 import sed.crappyapps.horsesexpenses.service.ReportService;
@@ -26,23 +30,26 @@ public class ReportController {
     private final BillService billService;
     private final ItemService itemService;
     private final EmployeeService employeeService;
+    private final HorseExpenseService horseExpenseService;
 
     public ReportController(
             ReportService reportService,
             IncomeService incomeService,
             BillService billService,
             ItemService itemService,
-            EmployeeService employeeService
+            EmployeeService employeeService,
+            HorseExpenseService horseExpenseService
     ) {
         this.reportService = reportService;
         this.incomeService = incomeService;
         this.billService = billService;
         this.itemService = itemService;
         this.employeeService = employeeService;
+        this.horseExpenseService = horseExpenseService;
     }
 
     @PostMapping("/update-income")
-    public String updateIncome(BoardingCost boardingCost) {
+    public String updateIncome(Model model, BoardingCost boardingCost) {
         Income horseBoardingIncome = incomeService.findById(boardingCost.getId()).orElseThrow(() -> new RuntimeException("Boarding Cost not found!"));
 
         horseBoardingIncome.setAmount(boardingCost.getPricePerHorse().multiply(new BigDecimal(boardingCost.getNumberOfHorses())));
@@ -65,6 +72,10 @@ public class ReportController {
             Report report = new Report(new BigDecimal(i), boardingCost.getPricePerHorse(), expenseTotal, incomeTotalMinusBoardingCost);
             reportService.save(report);
         }
+
+        System.out.println("Number of Horses: " + boardingCost.getNumberOfHorses());
+        System.out.println("Horse Expense List Size: " + horseExpenseService.findAll().size());
+        model.addAttribute("horseExpenseTotal" , TotalService.CalculateHorseExpenseTotal(horseExpenseService.findAll(), boardingCost.getNumberOfHorses()));
 
         return "redirect:/";
     }

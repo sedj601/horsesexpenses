@@ -51,7 +51,7 @@ public class MainController
 
         Income horseBoardingIncome = incomeService.findAll().getFirst();
         model.addAttribute("horseBoardingId", horseBoardingIncome.getId());
-        model.addAttribute("report", horseBoardingIncome);
+
 
         model.addAttribute("billTotal", TotalService.CalculateBillsTotal(billService.findAll()).setScale(2, RoundingMode.HALF_UP));
         model.addAttribute("itemTotal", TotalService.CalculateItemsTotal(itemService.findAll()).setScale(2, RoundingMode.HALF_UP));
